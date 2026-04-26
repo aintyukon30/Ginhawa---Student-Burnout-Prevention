@@ -49,9 +49,9 @@ function calculateBurnoutRisk(metrics, grades) {
     }
 
     let level = 'Low';
-    let color = 'text-green-500';
-    if (score >= 60) { level = 'High'; color = 'text-red-500'; }
-    else if (score >= 30) { level = 'Moderate'; color = 'text-yellow-500'; }
+    let color = 'text-primary';
+    if (score >= 60) { level = 'High'; color = 'text-red-600'; }
+    else if (score >= 30) { level = 'Moderate'; color = 'text-secondary'; }
 
     return { score, level, color, reasons };
 }

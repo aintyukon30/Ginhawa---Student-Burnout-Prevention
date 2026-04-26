@@ -4,29 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard | Ginhawa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#346739',
+                        secondary: '#79AE6F',
+                        bgmain: '#F2EDC2',
+                    },
+                    fontFamily: {
+                        title: ['Ephesis', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <nav class="p-4 bg-white shadow-sm flex justify-between items-center px-8">
-        <div class="text-xl font-bold text-blue-600">Ginhawa</div>
+<body class="bg-bgmain min-h-screen text-black">
+    <nav class="p-4 bg-white/50 backdrop-blur-md shadow-sm flex justify-between items-center px-8 border-b border-secondary/20">
+        <div class="text-3xl font-bold text-primary font-title">Ginhawa</div>
         <div class="flex items-center gap-6">
-            <a href="/wellness" class="text-gray-600 hover:text-blue-600 font-medium">Wellness Toolkit</a>
-            <button id="breakBtn" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-bold hover:bg-purple-200 transition">Take a Break</button>
+            <a href="/wellness" class="text-gray-700 hover:text-primary font-bold">Wellness Toolkit</a>
+            <button id="breakBtn" class="px-4 py-2 bg-secondary/20 text-primary rounded-lg font-bold hover:bg-secondary/30 transition border border-secondary/30">Take a Break</button>
             <div class="flex items-center gap-2">
-                <span class="text-gray-700 font-medium"><%= user.email %></span>
-                <a href="/logout" class="text-sm text-red-500">Logout</a>
+                <span class="text-gray-800 font-bold"><%= user.email %></span>
+                <a href="/logout" class="text-sm text-red-600 font-bold hover:underline">Logout</a>
             </div>
         </div>
     </nav>
 
     <!-- Take a Break Overlay -->
-    <div id="breakOverlay" class="fixed inset-0 bg-purple-900 bg-opacity-95 z-50 hidden flex flex-center items-center justify-center text-center p-8">
+    <div id="breakOverlay" class="fixed inset-0 bg-primary/95 z-50 hidden flex flex-center items-center justify-center text-center p-8 backdrop-blur-lg">
         <div class="max-w-lg">
-            <h2 class="text-4xl font-bold text-white mb-6">Time to breathe...</h2>
-            <div class="w-32 h-32 border-8 border-white border-t-transparent rounded-full animate-spin mx-auto mb-8"></div>
-            <p class="text-purple-200 text-xl mb-8">Take 5 minutes for yourself. Your grades will be here when you get back.</p>
-            <button id="resumeBtn" class="px-8 py-3 bg-white text-purple-900 rounded-xl font-bold text-lg">Back to Dashboard</button>
+            <h2 class="text-4xl font-bold text-bgmain mb-6">Time to breathe...</h2>
+            <div class="w-32 h-32 border-8 border-bgmain border-t-transparent rounded-full animate-spin mx-auto mb-8"></div>
+            <p class="text-secondary/20 text-xl mb-8 font-medium">Take 5 minutes for yourself. Your grades will be here when you get back.</p>
+            <button id="resumeBtn" class="px-8 py-3 bg-bgmain text-primary rounded-xl font-bold text-lg shadow-xl hover:scale-105 transition">Back to Dashboard</button>
         </div>
     </div>
 
@@ -34,36 +53,36 @@
         <!-- LEFT COL: RISK & PULSE -->
         <div class="lg:col-span-2 space-y-8">
             <!-- Burnout Risk Indicator -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border">
-                <h3 class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wider">Burnout Risk Indicator</h3>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-secondary/20">
+                <h3 class="text-xs font-bold text-secondary mb-4 uppercase tracking-widest">Burnout Risk Indicator</h3>
                 <div class="flex items-center justify-between">
                     <div>
-                        <div class="text-5xl font-black <%= risk.color %>"><%= risk.level %></div>
-                        <p class="text-gray-500 mt-2">Based on your recent patterns</p>
+                        <div class="text-5xl font-black <%= risk.level === 'Low' ? 'text-primary' : (risk.level === 'Moderate' ? 'text-secondary' : 'text-red-600') %>"><%= risk.level %></div>
+                        <p class="text-gray-600 mt-2 font-medium">Based on your recent patterns</p>
                     </div>
                     <div class="text-right">
                         <% if (risk.reasons.length > 0) { %>
-                            <ul class="text-sm text-gray-600">
+                            <ul class="text-sm text-gray-700 font-medium">
                                 <% risk.reasons.forEach(r => { %>
                                     <li class="flex items-center justify-end gap-2">
                                         <span><%= r %></span>
-                                        <span class="w-2 h-2 bg-red-400 rounded-full"></span>
+                                        <span class="w-2 h-2 bg-secondary rounded-full"></span>
                                     </li>
                                 <% }) %>
                             </ul>
                         <% } else { %>
-                            <p class="text-green-500 font-bold">Patterns looking healthy! ✨</p>
+                            <p class="text-primary font-black">Patterns looking healthy! ✨</p>
                         <% } %>
                     </div>
                 </div>
-                <div class="mt-6 w-full bg-gray-200 h-4 rounded-full overflow-hidden">
-                    <div class="h-full bg-blue-500 transition-all duration-1000" style="width: <%= risk.score %>%"></div>
+                <div class="mt-6 w-full bg-bgmain h-4 rounded-full overflow-hidden border border-secondary/10">
+                    <div class="h-full bg-primary transition-all duration-1000" style="width: <%= risk.score %>%"></div>
                 </div>
             </div>
 
             <!-- Academic Pulse -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border" id="academicPulse">
-                <h3 class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wider">Academic Pulse (Weekly View)</h3>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-secondary/20" id="academicPulse">
+                <h3 class="text-xs font-bold text-secondary mb-4 uppercase tracking-widest">Academic Pulse (Weekly View)</h3>
                 <canvas id="gradeChart" height="150"></canvas>
             </div>
         </div>
@@ -71,17 +90,20 @@
         <!-- RIGHT COL: HABITS & RECS -->
         <div class="space-y-8">
             <!-- Personalized Recommendations -->
-            <div class="bg-blue-600 text-white p-6 rounded-2xl shadow-lg">
-                <h3 class="text-lg font-bold mb-4">AI Recommendations</h3>
+            <div class="bg-primary text-white p-6 rounded-2xl shadow-lg border border-white/10">
+                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    AI Recommendations
+                </h3>
                 <div class="space-y-4">
                     <% if (risk.level === 'High') { %>
-                        <div class="bg-white/10 p-4 rounded-xl border border-white/20">
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm">
                             <p class="font-bold mb-1">Critical Rest Needed</p>
                             <p class="text-sm opacity-90">Your sleep has been below 6h for 3 days. Try this 10-min wind-down routine.</p>
-                            <button class="mt-3 text-sm font-bold underline">View Routine</button>
+                            <button class="mt-3 text-sm font-bold underline hover:no-underline">View Routine</button>
                         </div>
                     <% } %>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/20">
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm">
                         <p class="font-bold mb-1">Study Tip</p>
                         <p class="text-sm opacity-90">Your average study session: 3.2h without break. Try the 25/5 Pomodoro method today.</p>
                     </div>
@@ -89,32 +111,32 @@
             </div>
 
             <!-- Habit Tracker Form -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border">
-                <h3 class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wider">Log Today's Metrics</h3>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-secondary/20">
+                <h3 class="text-xs font-bold text-secondary mb-4 uppercase tracking-widest">Log Today's Metrics</h3>
                 <form action="/api/metrics" method="POST" class="space-y-4">
                     <div>
                         <label class="block text-sm font-bold text-gray-700">Sleep Hours</label>
-                        <input type="number" step="0.5" name="sleep" required class="w-full mt-1 p-2 border rounded-lg bg-gray-50">
+                        <input type="number" step="0.5" name="sleep" required class="w-full mt-1 p-2 border border-secondary/30 rounded-lg bg-bgmain/30 focus:ring-2 focus:ring-primary outline-none transition">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700">Study Hours</label>
-                        <input type="number" step="0.5" name="study" required class="w-full mt-1 p-2 border rounded-lg bg-gray-50">
+                        <input type="number" step="0.5" name="study" required class="w-full mt-1 p-2 border border-secondary/30 rounded-lg bg-bgmain/30 focus:ring-2 focus:ring-primary outline-none transition">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700">Stress Level (1-5)</label>
-                        <input type="range" name="stress" min="1" max="5" class="w-full mt-2">
+                        <input type="range" name="stress" min="1" max="5" class="w-full mt-2 accent-primary">
                     </div>
-                    <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded-lg font-bold">Save Metrics</button>
+                    <button type="submit" class="w-full py-2 bg-primary text-white rounded-lg font-bold shadow-md hover:opacity-90 transition">Save Metrics</button>
                 </form>
             </div>
 
             <!-- Grade Entry -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border">
-                <h3 class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wider">New Grade</h3>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-secondary/20">
+                <h3 class="text-xs font-bold text-secondary mb-4 uppercase tracking-widest">New Grade</h3>
                 <form action="/api/grades" method="POST" class="space-y-4">
-                    <input type="text" name="subject" placeholder="Subject" required class="w-full p-2 border rounded-lg bg-gray-50">
-                    <input type="number" name="score" placeholder="Score (0-100)" required class="w-full p-2 border rounded-lg bg-gray-50">
-                    <button type="submit" class="w-full py-2 border border-blue-600 text-blue-600 rounded-lg font-bold">Add Grade</button>
+                    <input type="text" name="subject" placeholder="Subject" required class="w-full p-2 border border-secondary/30 rounded-lg bg-bgmain/30 focus:ring-2 focus:ring-primary outline-none transition">
+                    <input type="number" name="score" placeholder="Score (0-100)" required class="w-full p-2 border border-secondary/30 rounded-lg bg-bgmain/30 focus:ring-2 focus:ring-primary outline-none transition">
+                    <button type="submit" class="w-full py-2 border-2 border-primary text-primary rounded-lg font-black hover:bg-primary hover:text-white transition">Add Grade</button>
                 </form>
             </div>
         </div>
@@ -132,15 +154,22 @@
                 datasets: [{
                     label: 'Grade Score',
                     data: grades.map(g => g.score),
-                    borderColor: '#2563eb',
+                    borderColor: '#346739',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#79AE6F',
+                    pointRadius: 5,
                     tension: 0.3,
                     fill: true,
-                    backgroundColor: 'rgba(37, 99, 235, 0.1)'
+                    backgroundColor: 'rgba(52, 103, 57, 0.1)'
                 }]
             },
             options: {
                 scales: {
-                    y: { beginAtZero: true, max: 100 }
+                    y: { beginAtZero: true, max: 100, grid: { color: 'rgba(0,0,0,0.05)' } },
+                    x: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false }
                 }
             }
         });

@@ -4,26 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Ginhawa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#346739',
+                        secondary: '#79AE6F',
+                        bgmain: '#F2EDC2',
+                    },
+                    fontFamily: {
+                        title: ['Ephesis', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 class="text-3xl font-bold mb-6 text-center text-blue-600">Login</h2>
+<body class="bg-bgmain flex items-center justify-center min-h-screen text-black">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-secondary/20">
+        <h2 class="text-4xl font-bold mb-6 text-center text-primary font-title">Ginhawa</h2>
         <% if (error) { %>
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"><%= error %></div>
+            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm font-medium"><%= error %></div>
         <% } %>
         <form action="/login" method="POST">
             <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Email</label>
-                <input type="email" name="email" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                <label class="block text-gray-700 mb-2 font-medium">Email</label>
+                <input type="email" name="email" required class="w-full p-3 border border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary outline-none transition">
             </div>
             <div class="mb-6">
-                <label class="block text-gray-700 mb-2">Password</label>
-                <input type="password" name="password" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                <label class="block text-gray-700 mb-2 font-medium">Password</label>
+                <input type="password" name="password" required class="w-full p-3 border border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary outline-none transition">
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg font-bold hover:bg-blue-700 transition">Login</button>
+            <button type="submit" class="w-full bg-primary text-white p-3 rounded-lg font-bold hover:opacity-90 transition shadow-md">Login</button>
         </form>
-        <p class="mt-4 text-center text-gray-600">Don't have an account? <a href="/signup" class="text-blue-600 font-semibold">Sign Up</a></p>
+        <p class="mt-4 text-center text-gray-700 font-medium text-sm">Don't have an account? <a href="/signup" class="text-primary font-bold hover:underline">Sign Up</a></p>
     </div>
 </body>
 </html>

@@ -4,81 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wellness Toolkit | Ginhawa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#346739',
+                        secondary: '#79AE6F',
+                        bgmain: '#F2EDC2',
+                    },
+                    fontFamily: {
+                        title: ['Ephesis', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         .breathe-circle {
             animation: breathe 8s ease-in-out infinite;
         }
         @keyframes breathe {
-            0%, 100% { transform: scale(1); background-color: #93c5fd; }
-            50% { transform: scale(1.5); background-color: #60a5fa; }
+            0%, 100% { transform: scale(1); background-color: #79AE6F; }
+            50% { transform: scale(1.5); background-color: #346739; }
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <nav class="p-4 bg-white shadow-sm flex justify-between items-center px-8">
-        <a href="/dashboard" class="text-xl font-bold text-blue-600">Ginhawa</a>
+<body class="bg-bgmain min-h-screen text-black font-medium">
+    <nav class="p-4 bg-white/50 backdrop-blur-md shadow-sm flex justify-between items-center px-8 border-b border-secondary/20">
+        <a href="/dashboard" class="text-3xl font-black text-primary font-title">Ginhawa</a>
         <div class="flex items-center gap-4">
-            <a href="/dashboard" class="text-gray-600 hover:text-blue-600 font-medium">Back to Dashboard</a>
+            <a href="/dashboard" class="text-gray-700 hover:text-primary font-black transition">Back to Dashboard</a>
         </div>
     </nav>
 
     <main class="p-8 max-w-5xl mx-auto">
-        <h2 class="text-4xl font-bold mb-4">Wellness Toolkit</h2>
-        <p class="text-gray-600 mb-12 text-lg">Your sanctuary for mental health, study efficiency, and crisis support.</p>
+        <h2 class="text-4xl font-black mb-4 text-primary">Wellness Toolkit</h2>
+        <p class="text-gray-700 mb-12 text-lg">Your sanctuary for mental health, study efficiency, and crisis support.</p>
 
         <!-- Breathing Exercise -->
-        <div class="bg-white p-12 rounded-3xl shadow-sm border mb-12 text-center">
-            <h3 class="text-2xl font-bold mb-8 text-blue-800">Box Breathing Exercise</h3>
+        <div class="bg-white p-12 rounded-3xl shadow-xl border border-secondary/20 mb-12 text-center">
+            <h3 class="text-2xl font-black mb-8 text-primary">Box Breathing Exercise</h3>
             <div class="flex justify-center items-center h-64">
-                <div class="breathe-circle w-32 h-32 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                <div class="breathe-circle w-32 h-32 rounded-full flex items-center justify-center text-white font-black text-xl shadow-2xl">
                     <span id="breatheText">Breathe In</span>
                 </div>
             </div>
-            <p class="mt-8 text-gray-500 italic">Inhale for 4s, Hold for 4s, Exhale for 4s, Hold for 4s.</p>
+            <p class="mt-8 text-gray-500 italic font-medium">Inhale for 4s, Hold for 4s, Exhale for 4s, Hold for 4s.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <!-- Coping Strategies -->
-            <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-                <h3 class="text-xl font-bold mb-4 text-blue-900">Coping Strategies</h3>
+            <div class="bg-white p-8 rounded-3xl border border-secondary/20 shadow-lg">
+                <h3 class="text-xl font-black mb-6 text-primary flex items-center gap-2">
+                    <span class="p-2 bg-secondary/10 rounded-lg">🧘</span> Coping Strategies
+                </h3>
                 <ul class="space-y-4">
-                    <li class="bg-white p-4 rounded-xl shadow-sm">
-                        <strong class="block text-blue-800">Cognitive Reframing</strong>
-                        <span class="text-sm text-gray-600">Instead of "I have too much to do," try "I have a lot on my plate, but I can handle one task at a time."</span>
+                    <li class="bg-bgmain/30 p-4 rounded-xl border border-secondary/10">
+                        <strong class="block text-primary">Cognitive Reframing</strong>
+                        <span class="text-sm text-gray-700">Instead of "I have too much to do," try "I have a lot on my plate, but I can handle one task at a time."</span>
                     </li>
-                    <li class="bg-white p-4 rounded-xl shadow-sm">
-                        <strong class="block text-blue-800">The 5-4-3-2-1 Technique</strong>
-                        <span class="text-sm text-gray-600">Ground yourself by identifying 5 things you see, 4 you feel, 3 you hear, 2 you smell, and 1 you taste.</span>
+                    <li class="bg-bgmain/30 p-4 rounded-xl border border-secondary/10">
+                        <strong class="block text-primary">The 5-4-3-2-1 Technique</strong>
+                        <span class="text-sm text-gray-700">Ground yourself by identifying 5 things you see, 4 you feel, 3 you hear, 2 you smell, and 1 you taste.</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Study Efficiency -->
-            <div class="bg-green-50 p-8 rounded-3xl border border-green-100">
-                <h3 class="text-xl font-bold mb-4 text-green-900">Study Efficiency Tips</h3>
+            <div class="bg-white p-8 rounded-3xl border border-secondary/20 shadow-lg">
+                <h3 class="text-xl font-black mb-6 text-primary flex items-center gap-2">
+                    <span class="p-2 bg-secondary/10 rounded-lg">📖</span> Study Efficiency
+                </h3>
                 <ul class="space-y-4">
-                    <li class="bg-white p-4 rounded-xl shadow-sm">
-                        <strong class="block text-green-800">Active Recall</strong>
-                        <span class="text-sm text-gray-600">Test yourself before you study. It primes your brain to retain the information better.</span>
+                    <li class="bg-bgmain/30 p-4 rounded-xl border border-secondary/10">
+                        <strong class="block text-primary">Active Recall</strong>
+                        <span class="text-sm text-gray-700">Test yourself before you study. It primes your brain to retain the information better.</span>
                     </li>
-                    <li class="bg-white p-4 rounded-xl shadow-sm">
-                        <strong class="block text-green-800">Time Blocking</strong>
-                        <span class="text-sm text-gray-600">Dedicate specific blocks of time to one subject only. No multitasking allowed.</span>
+                    <li class="bg-bgmain/30 p-4 rounded-xl border border-secondary/10">
+                        <strong class="block text-primary">Time Blocking</strong>
+                        <span class="text-sm text-gray-700">Dedicate specific blocks of time to one subject only. No multitasking allowed.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
         <!-- Emergency / Crisis Override -->
-        <div class="bg-red-600 text-white p-10 rounded-3xl shadow-xl text-center">
-            <h3 class="text-2xl font-bold mb-4">Feeling Overwhelmed?</h3>
-            <p class="mb-8 text-red-100 text-lg">If you're feeling like you can't handle things anymore, please reach out. You are not alone.</p>
+        <div class="bg-primary text-white p-10 rounded-3xl shadow-2xl text-center border-t-8 border-secondary">
+            <h3 class="text-2xl font-black mb-4">Feeling Overwhelmed?</h3>
+            <p class="mb-8 text-bgmain text-lg font-medium opacity-90">If you're feeling like you can't handle things anymore, please reach out. You are not alone.</p>
             <div class="flex flex-wrap justify-center gap-4">
-                <button onclick="alert('Connecting you with a school counselor...') " class="px-8 py-3 bg-white text-red-600 rounded-xl font-bold hover:bg-red-50 transition">Talk to a Counselor Now</button>
-                <div class="w-full md:w-auto px-8 py-3 bg-red-700 text-white rounded-xl font-bold border border-red-500">Crisis Text Line: Text HOME to 741741</div>
+                <button onclick="alert('Connecting you with a school counselor...') " class="px-8 py-3 bg-bgmain text-primary rounded-xl font-black hover:scale-105 transition shadow-lg">Talk to a Counselor Now</button>
+                <div class="w-full md:w-auto px-8 py-3 bg-white/10 text-white rounded-xl font-black border border-white/20 backdrop-blur-sm">Crisis Text Line: Text HOME to 741741</div>
             </div>
-            <p class="mt-6 text-sm text-red-200 opacity-80 italic">* This will notify your school counselor and prioritize your support request.</p>
+            <p class="mt-6 text-sm text-bgmain opacity-80 italic font-medium">* This will notify your school counselor and prioritize your support request.</p>
         </div>
     </main>
 
