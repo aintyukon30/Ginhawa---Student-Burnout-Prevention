@@ -1,0 +1,4 @@
+user_id,sleep_hours,study_hours,stress_level,date,id
+1,5,10,5,2026-04-25,1
+1,4.5,9,4,2026-04-26,2
+3,5,1,4,2026-04-25,3

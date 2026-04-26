@@ -1,0 +1,5 @@
+email,password,role,onboarded,id
+student@school.edu,$2b$10$Um6Cmm8yVbMKk8quI0xEOeZMdeCrK8OzyukXbrn8FIV76AIwjlI12,student,1,1
+counselor@school.edu,$2b$10$LkA/lWGGEm6d1JRC8ILFpOJlpGR/1y8U9Px9VVsohy/B4YJacWJH6,counselor,0,2
+kylebaldoman456@gmail.com,$2b$10$q6x2c6COwcU7jPd6JoBWMutU4yGIsXitmYZI2ETJucvsbjgGGcaFq,student,1,3
+kylebaldoman342@gmail.com,$2b$10$K7Z1qoR5vJ/JgHTpJkaLS.ZpaYgs47tsauRWY8A5gopeMzFEoBavG,counselor,0,4

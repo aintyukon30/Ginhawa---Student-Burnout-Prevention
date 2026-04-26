@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | Ginhawa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <h2 class="text-3xl font-bold mb-6 text-center text-blue-600">Create Account</h2>
+        <% if (error) { %>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"><%= error %></div>
+        <% } %>
+        <form action="/signup" method="POST">
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">I am a...</label>
+                <div class="flex gap-4">
+                    <label class="flex-1 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 text-center">
+                        <input type="radio" name="role" value="student" class="hidden peer" checked>
+                        <span class="peer-checked:text-blue-600 peer-checked:font-bold">Student</span>
+                    </label>
+                    <label class="flex-1 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 text-center">
+                        <input type="radio" name="role" value="counselor" class="hidden peer">
+                        <span class="peer-checked:text-blue-600 peer-checked:font-bold">Counselor</span>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Email</label>
+                <input type="email" name="email" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Password</label>
+                <input type="password" name="password" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div class="mb-6" id="schoolCodeGroup">
+                <label class="block text-gray-700 mb-2">School Code (Optional)</label>
+                <input type="text" name="school_code" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg font-bold hover:bg-blue-700 transition">Sign Up</button>
+        </form>
+        <script>
+            const roleRadios = document.querySelectorAll('input[name="role"]');
+            const schoolCodeGroup = document.getElementById('schoolCodeGroup');
+
+            roleRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'counselor') {
+                        schoolCodeGroup.classList.add('hidden');
+                    } else {
+                        schoolCodeGroup.classList.remove('hidden');
+                    }
+                });
+            });
+        </script>
+        <p class="mt-4 text-center text-gray-600">Already have an account? <a href="/login" class="text-blue-600 font-semibold">Login</a></p>
+    </div>
+</body>
+</html>

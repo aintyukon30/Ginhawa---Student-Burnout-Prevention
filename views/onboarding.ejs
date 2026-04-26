@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding | Ginhawa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-6">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-lg">
+        <h2 class="text-3xl font-bold mb-4 text-blue-600">Welcome!</h2>
+        <p class="text-gray-600 mb-8">Let's get some baseline data to help our AI understand your current state. We only use this to detect burnout patterns – your data is never sold.</p>
+        
+        <form action="/onboarding" method="POST">
+            <div class="mb-6">
+                <label class="block font-bold mb-2">Daily Sleep (Avg hours)</label>
+                <input type="number" step="0.5" name="sleep" required class="w-full p-3 border rounded-lg" placeholder="e.g. 7.5">
+            </div>
+            <div class="mb-6">
+                <label class="block font-bold mb-2">Daily Study (Avg hours)</label>
+                <input type="number" step="0.5" name="study" required class="w-full p-3 border rounded-lg" placeholder="e.g. 5">
+            </div>
+            <div class="mb-8">
+                <label class="block font-bold mb-2">Stress Level (1-5)</label>
+                <div class="flex justify-between gap-2">
+                    <label class="flex-1 text-center"><input type="radio" name="stress" value="1" required class="block mx-auto mb-1"> 1<br><small>Low</small></label>
+                    <label class="flex-1 text-center"><input type="radio" name="stress" value="2" class="block mx-auto mb-1"> 2</label>
+                    <label class="flex-1 text-center"><input type="radio" name="stress" value="3" class="block mx-auto mb-1"> 3</label>
+                    <label class="flex-1 text-center"><input type="radio" name="stress" value="4" class="block mx-auto mb-1"> 4</label>
+                    <label class="flex-1 text-center"><input type="radio" name="stress" value="5" class="block mx-auto mb-1"> 5<br><small>High</small></label>
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white p-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition">Complete Setup</button>
+        </form>
+    </div>
+</body>
+</html>
