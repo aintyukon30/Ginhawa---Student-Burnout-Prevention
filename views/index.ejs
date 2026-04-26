@@ -15,7 +15,7 @@
                     colors: {
                         primary: '#346739',
                         secondary: '#79AE6F',
-                        bgmain: '#F2EDC2',
+                        bgmain: '#DED79E',
                     },
                     fontFamily: {
                         title: ['Ephesis', 'cursive'],
@@ -25,74 +25,74 @@
         }
     </script>
 </head>
-<body class="bg-bgmain text-black">
-    <nav class="p-6 flex justify-between items-center bg-white/50 backdrop-blur-sm shadow-sm">
-        <div class="text-4xl font-bold text-primary font-title">Ginhawa</div>
-        <div>
+<body class="bg-bgmain text-black min-h-screen flex flex-col">
+    <nav class="p-4 md:p-6 flex flex-wrap justify-between items-center bg-white/50 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <div class="text-3xl md:text-4xl font-bold text-primary font-title">Ginhawa</div>
+        <div class="flex items-center gap-2 md:gap-4 mt-2 sm:mt-0">
             <% if (user) { %>
-                <a href="/dashboard" class="px-4 py-2 bg-primary text-white rounded-lg">Dashboard</a>
-                <a href="/logout" class="ml-4 text-gray-700 font-medium">Logout</a>
+                <a href="/dashboard" class="px-3 py-1.5 md:px-4 md:py-2 bg-primary text-white rounded-lg text-sm md:text-base">Dashboard</a>
+                <a href="/logout" class="text-gray-700 font-medium text-sm md:text-base">Logout</a>
             <% } else { %>
-                <a href="/login" class="text-gray-700 font-medium mr-4">Login</a>
-                <a href="/signup" class="px-4 py-2 bg-primary text-white rounded-lg">Get Started</a>
+                <a href="/login" class="text-gray-700 font-medium text-sm md:text-base">Login</a>
+                <a href="/signup" class="px-3 py-1.5 md:px-4 md:py-2 bg-primary text-white rounded-lg text-sm md:text-base">Get Started</a>
             <% } %>
         </div>
     </nav>
 
-    <header class="py-20 text-center">
-        <h1 class="text-5xl font-extrabold mb-4 text-primary">Predict. Prevent. Perform.</h1>
-        <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">Empowering students and educators to detect burnout risk before it hits. Using AI-driven insights to keep you at your peak performance.</p>
-        <div class="flex justify-center gap-4">
+    <header class="py-12 md:py-20 px-6 text-center">
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-4 text-primary leading-tight">Predict. Prevent. Perform.</h1>
+        <p class="text-lg md:text-xl text-gray-800 mb-8 max-w-2xl mx-auto">Empowering students and educators to detect burnout risk before it hits. Using AI-driven insights to keep you at your peak performance.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a href="/signup" class="px-8 py-3 bg-primary text-white text-lg font-semibold rounded-xl hover:opacity-90 transition shadow-lg">Get Started – It’s Free</a>
         </div>
     </header>
 
-    <section class="py-16 bg-white/30">
-        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+    <section class="py-12 md:py-16 bg-white/30">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center">
             <div>
-                <div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
+                <div class="w-12 h-12 md:w-16 md:h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl md:text-2xl font-bold">1</div>
                 <h3 class="text-xl font-bold mb-2">Connect Data</h3>
-                <p class="text-gray-800">Sync with your LMS or log your daily sleep, study, and stress levels manually.</p>
+                <p class="text-gray-800 text-sm md:text-base">Sync with your LMS or log your daily sleep, study, and stress levels manually.</p>
             </div>
             <div>
-                <div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
+                <div class="w-12 h-12 md:w-16 md:h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl md:text-2xl font-bold">2</div>
                 <h3 class="text-xl font-bold mb-2">AI Analysis</h3>
-                <p class="text-gray-800">Our engine identifies patterns in your grades, sleep, and habits to calculate burnout risk.</p>
+                <p class="text-gray-800 text-sm md:text-base">Our engine identifies patterns in your grades, sleep, and habits to calculate burnout risk.</p>
             </div>
             <div>
-                <div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
+                <div class="w-12 h-12 md:w-16 md:h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl md:text-2xl font-bold">3</div>
                 <h3 class="text-xl font-bold mb-2">Personalized Action</h3>
-                <p class="text-gray-800">Receive custom recommendations, wellness tips, and resource links to stay healthy.</p>
+                <p class="text-gray-800 text-sm md:text-base">Receive custom recommendations, wellness tips, and resource links to stay healthy.</p>
             </div>
         </div>
     </section>
 
-    <section class="py-16">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8 text-primary">Trusted by Students & Educators</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
-                <div class="bg-white/50 p-6 rounded-xl shadow-sm border border-secondary/30 italic text-black">
+    <section class="py-12 md:py-16">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-primary">Trusted by Students & Educators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div class="bg-white/50 p-6 rounded-xl shadow-sm border border-secondary/30 italic text-black text-sm md:text-base">
                     "This tool helped me realize my sleep habits were the main reason for my dropping grades. It's a lifesaver!" - Sarah, Student
                 </div>
-                <div class="bg-white/50 p-6 rounded-xl shadow-sm border border-secondary/30 italic text-black">
+                <div class="bg-white/50 p-6 rounded-xl shadow-sm border border-secondary/30 italic text-black text-sm md:text-base">
                     "An invaluable resource for early intervention. I can now support students before they reach a crisis point." - Mr. Thompson, Counselor
                 </div>
             </div>
-            <div class="mt-12 flex items-center justify-center gap-4">
-                <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full text-sm font-bold border border-secondary/30">FERPA Compliant</span>
-                <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full text-sm font-bold border border-secondary/30">COPPA Compliant</span>
+            <div class="mt-8 md:mt-12 flex flex-wrap items-center justify-center gap-3 md:gap-4">
+                <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full text-xs md:text-sm font-bold border border-secondary/30">FERPA Compliant</span>
+                <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full text-xs md:text-sm font-bold border border-secondary/30">COPPA Compliant</span>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 bg-primary text-white text-center">
-        <div class="flex justify-center gap-6 mb-4 font-medium">
+    <footer class="mt-auto py-8 md:py-12 bg-primary text-white text-center px-6">
+        <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-4 font-medium text-sm md:text-base">
             <a href="#" class="hover:underline">About</a>
             <a href="#" class="hover:underline">Privacy</a>
             <a href="#" class="hover:underline">Contact</a>
             <a href="#" class="hover:underline">For Schools</a>
         </div>
-        <p class="opacity-80">&copy; 2026 Ginhawa - Malungay Pandesal. All rights reserved.</p>
+        <p class="opacity-80 text-xs md:text-sm">&copy; 2026 Ginhawa - Malungay Pandesal. All rights reserved.</p>
     </footer>
 </body>
 </html>

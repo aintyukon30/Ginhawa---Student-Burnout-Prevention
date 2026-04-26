@@ -15,7 +15,7 @@
                     colors: {
                         primary: '#346739',
                         secondary: '#79AE6F',
-                        bgmain: '#F2EDC2',
+                        bgmain: '#DED79E',
                     },
                     fontFamily: {
                         title: ['Ephesis', 'cursive'],
@@ -25,8 +25,8 @@
         }
     </script>
 </head>
-<body class="bg-bgmain flex items-center justify-center min-h-screen text-black">
-    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-secondary/20">
+<body class="bg-bgmain flex items-center justify-center min-h-screen text-black p-4 md:p-6">
+    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-md border border-secondary/20 my-auto">
         <h2 class="text-4xl font-bold mb-6 text-center text-primary font-title">Ginhawa</h2>
         <% if (error) { %>
             <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm font-medium"><%= error %></div>

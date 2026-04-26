@@ -15,7 +15,7 @@
                     colors: {
                         primary: '#346739',
                         secondary: '#79AE6F',
-                        bgmain: '#F2EDC2',
+                        bgmain: '#DED79E',
                     },
                     fontFamily: {
                         title: ['Ephesis', 'cursive'],
@@ -25,92 +25,128 @@
         }
     </script>
 </head>
-<body class="bg-bgmain min-h-screen text-black">
-    <nav class="p-4 bg-white/50 backdrop-blur-md shadow-sm flex justify-between items-center px-8 border-b border-secondary/20">
-        <div class="text-3xl font-bold text-primary font-title flex items-center gap-2">Ginhawa <span class="text-secondary text-sm font-black font-sans">| Counselor Portal</span></div>
-        <div class="flex items-center gap-6">
+<body class="bg-bgmain min-h-screen text-black overflow-x-hidden">
+    <nav class="p-4 bg-white/70 backdrop-blur-md shadow-sm flex justify-between items-center px-4 md:px-8 border-b border-secondary/20 sticky top-0 z-50">
+        <div class="text-2xl md:text-3xl font-bold text-primary font-title flex items-center gap-2 shrink-0">Ginhawa <span class="text-secondary text-[10px] md:text-sm font-black font-sans">| Counselor Portal</span></div>
+        <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
-                <span class="text-gray-800 font-bold"><%= user.email %></span>
-                <a href="/logout" class="text-sm text-red-600 font-bold hover:underline">Logout</a>
+                <span class="text-gray-800 font-bold text-xs hidden sm:inline whitespace-nowrap"><%= user.email %></span>
+                <a href="/logout" class="text-xs text-red-600 font-bold hover:underline">Logout</a>
             </div>
         </div>
     </nav>
 
-    <main class="p-8 max-w-6xl mx-auto">
-        <div class="mb-8 flex justify-between items-end">
+    <main class="p-4 md:p-8 max-w-6xl mx-auto">
+        <div class="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-6">
             <div>
-                <h2 class="text-3xl font-black text-primary">Student Risk Monitoring</h2>
-                <p class="text-gray-700 font-medium">Anonymized view of student burnout patterns for early intervention.</p>
+                <h2 class="text-2xl md:text-3xl font-black text-primary">Student Risk Monitoring</h2>
+                <p class="text-gray-700 font-medium text-sm md:text-base">Anonymized view of student burnout patterns.</p>
             </div>
-            <div class="flex gap-4">
-                <button class="px-4 py-2 bg-white border border-secondary/30 rounded-lg shadow-sm text-sm font-bold hover:bg-bgmain transition">Export Report (PDF)</button>
-                <button class="px-4 py-2 bg-primary text-white rounded-lg shadow-sm text-sm font-bold hover:opacity-90 transition">Send Bulk Alert</button>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="exportReport()" class="px-4 py-2.5 bg-white border border-secondary/30 rounded-xl shadow-sm text-xs md:text-sm font-bold hover:bg-bgmain transition w-full sm:w-auto">Export Report (PDF)</button>
+                <button onclick="sendBulkAlert()" class="px-4 py-2.5 bg-primary text-white rounded-xl shadow-sm text-xs md:text-sm font-bold hover:opacity-90 transition w-full sm:w-auto">Send Bulk Alert</button>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-xl border border-secondary/20 overflow-hidden">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-secondary/10 border-b border-secondary/20">
-                        <th class="p-4 font-black text-primary uppercase text-xs tracking-widest">Student ID (Encrypted)</th>
-                        <th class="p-4 font-black text-primary uppercase text-xs tracking-widest">Risk Level</th>
-                        <th class="p-4 font-black text-primary uppercase text-xs tracking-widest">Recent Metrics</th>
-                        <th class="p-4 font-black text-primary uppercase text-xs tracking-widest">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% if (students.length === 0) { %>
-                        <tr>
-                            <td colspan="4" class="p-8 text-center text-gray-500 font-medium italic">No students registered in the system yet.</td>
+        <div class="bg-white rounded-3xl shadow-xl border border-secondary/20 overflow-hidden">
+            <div class="overflow-x-auto no-scrollbar">
+                <table class="w-full text-left border-collapse min-w-[700px]" id="studentTable">
+                    <thead>
+                        <tr class="bg-secondary/10 border-b border-secondary/20">
+                            <th class="p-5 font-black text-primary uppercase text-[10px] md:text-xs tracking-widest">Student ID</th>
+                            <th class="p-5 font-black text-primary uppercase text-[10px] md:text-xs tracking-widest">Risk Level</th>
+                            <th class="p-5 font-black text-primary uppercase text-[10px] md:text-xs tracking-widest">Recent Metrics</th>
+                            <th class="p-5 font-black text-primary uppercase text-[10px] md:text-xs tracking-widest text-right">Action</th>
                         </tr>
-                    <% } %>
-                    <% students.forEach(s => { %>
-                        <tr class="border-b border-secondary/10 hover:bg-bgmain/50 transition">
-                            <td class="p-4 font-mono text-sm text-gray-700">USR-<%= s.id.toString().padStart(4, '0') %></td>
-                            <td class="p-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-black uppercase <%= s.riskLevel === 'Low' ? 'text-primary bg-primary/10' : (s.riskLevel === 'Moderate' ? 'text-secondary bg-secondary/10' : 'text-red-700 bg-red-50') %> border border-current">
-                                    <%= s.riskLevel %>
-                                </span>
-                            </td>
-                            <td class="p-4 text-sm text-gray-700 font-medium">
-                                <% if (s.last_sleep) { %>
-                                    Sleep: <%= s.last_sleep %>h | Study: <%= s.last_study %>h | Stress: <%= s.last_stress %>/5
-                                <% } else { %>
-                                    No data yet
-                                <% } %>
-                            </td>
-                            <td class="p-4">
-                                <button class="text-primary font-black text-sm hover:underline">Message Support</button>
-                            </td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <% if (students.length === 0) { %>
+                            <tr>
+                                <td colspan="4" class="p-10 text-center text-gray-500 font-medium italic">No students registered in the system yet.</td>
+                            </tr>
+                        <% } %>
+                        <% students.forEach(s => { %>
+                            <tr class="border-b border-secondary/10 hover:bg-bgmain/30 transition student-row" data-risk="<%= s.riskLevel %>">
+                                <td class="p-5 font-mono text-xs md:text-sm text-gray-700">USR-<%= s.id.toString().padStart(4, '0') %></td>
+                                <td class="p-5">
+                                    <span class="px-3 py-1 rounded-full text-[10px] md:text-xs font-black uppercase <%= s.riskLevel === 'Low' ? 'text-primary bg-primary/10' : (s.riskLevel === 'Moderate' ? 'text-secondary bg-secondary/10' : 'text-red-700 bg-red-50') %> border border-current">
+                                        <%= s.riskLevel %>
+                                    </span>
+                                </td>
+                                <td class="p-5 text-xs md:text-sm text-gray-700 font-bold">
+                                    <% if (s.last_sleep) { %>
+                                        <span class="whitespace-nowrap">Sleep: <%= s.last_sleep %>h</span>
+                                        <span class="mx-2 opacity-30 text-primary">|</span>
+                                        <span class="whitespace-nowrap">Study: <%= s.last_study %>h</span>
+                                        <span class="mx-2 opacity-30 text-primary">|</span>
+                                        <span class="whitespace-nowrap">Stress: <%= s.last_stress %>/5</span>
+                                    <% } else { %>
+                                        <span class="opacity-50">No data yet</span>
+                                    <% } %>
+                                </td>
+                                <td class="p-5 text-right">
+                                    <button onclick="messageStudent('USR-<%= s.id.toString().padStart(4, '0') %>')" class="text-primary font-black text-xs md:text-sm hover:underline whitespace-nowrap">Message Support</button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Alert Panel -->
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white p-6 rounded-2xl shadow-lg border-l-8 border-red-500">
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-l-8 border-red-500">
                 <h3 class="text-red-800 font-black mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     High Risk Alerts
                 </h3>
                 <% const highRisk = students.filter(s => s.riskLevel === 'High').length; %>
-                <p class="text-gray-800 text-sm mb-4 font-medium">You have <strong><%= highRisk %></strong> students in the high burnout risk category. It is recommended to initiate a 1:1 check-in.</p>
-                <button class="text-red-700 text-xs font-black uppercase tracking-widest hover:underline">Review All High Risk Students &rarr;</button>
+                <p class="text-gray-800 text-sm md:text-base mb-4 font-medium">You have <strong><%= highRisk %></strong> students in the high burnout risk category.</p>
+                <button onclick="filterHighRisk()" class="text-red-700 text-xs md:text-sm font-black uppercase tracking-widest hover:underline" id="filterBtn">Review All High Risk Students &rarr;</button>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg border-l-8 border-primary">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-l-8 border-primary">
                 <h3 class="text-primary font-black mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     Suggested Actions
                 </h3>
-                <ul class="text-gray-800 text-sm space-y-2 font-medium">
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary rounded-full"></span> Schedule "Wellness Wednesday" workshop</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary rounded-full"></span> Send class-wide reminder about extension policies</li>
-                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary rounded-full"></span> Distribute "Active Recall" study guide</li>
+                <ul class="text-gray-800 text-sm md:text-base space-y-4 font-bold">
+                    <li class="flex items-center gap-3 cursor-pointer hover:text-primary transition" onclick="alert('Event scheduled: Wellness Wednesday workshop')">
+                        <span class="w-2 h-2 bg-secondary rounded-full shrink-0"></span> Schedule "Wellness Wednesday"
+                    </li>
+                    <li class="flex items-center gap-3 cursor-pointer hover:text-primary transition" onclick="alert('Bulk email sent: Extension policy reminders')">
+                        <span class="w-2 h-2 bg-secondary rounded-full shrink-0"></span> Extension reminders
+                    </li>
                 </ul>
             </div>
         </div>
     </main>
+
+    <script>
+        function exportReport() { window.print(); }
+        function sendBulkAlert() {
+            const msg = prompt("Message for ALL students:", "Remember to take breaks!");
+            if (msg) alert("Bulk alert queued.");
+        }
+        function messageStudent(id) {
+            const msg = prompt(`Message to ${id}:`, "Hi, how are you feeling?");
+            if (msg) alert(`Message sent to ${id}.`);
+        }
+        let filtering = false;
+        function filterHighRisk() {
+            const rows = document.querySelectorAll('.student-row');
+            const btn = document.getElementById('filterBtn');
+            filtering = !filtering;
+            rows.forEach(row => {
+                if (filtering) {
+                    row.style.display = row.dataset.risk === 'High' ? 'table-row' : 'none';
+                    btn.innerHTML = 'Show All Students &larr;';
+                } else {
+                    row.style.display = 'table-row';
+                    btn.innerHTML = 'Review All High Risk Students &rarr;';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
